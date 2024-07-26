@@ -1,0 +1,13 @@
+- name: Configure Nginx to serve a simple web application
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Copy index.html to Nginx default site
+      copy:
+        src: ./index.html
+        dest: /var/www/html/index.html
+
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: restarted

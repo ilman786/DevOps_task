@@ -1,0 +1,30 @@
+#!/bin/bash
+
+INSTANCE_ID="i-0123456789abcdef0"  
+REGION="us-west-2"                 
+ACTION=$1                         
+
+start_instance() {
+    echo "Starting the EC2 instance $INSTANCE_ID in region $REGION..."
+    aws ec2 start-instances --instance-ids $INSTANCE_ID --region $REGION
+    echo "Instance started."
+}
+
+stop_instance() {
+    echo "Stopping the EC2 instance $INSTANCE_ID in region $REGION..."
+    aws ec2 stop-instances --instance-ids $INSTANCE_ID --region $REGION
+    echo "Instance stopped."
+}
+
+case $ACTION in
+    start)
+        start_instance
+        ;;
+    stop)
+        stop_instance
+        ;;
+    *)
+        echo "Usage: $0 {start|stop}"
+        exit 1
+        ;;
+esac
